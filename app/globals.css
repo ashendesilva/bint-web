@@ -1,104 +1,182 @@
 @import "tailwindcss";
 
+@theme {
+  --font-orbitron: var(--font-orbitron);
+  --font-rajdhani: var(--font-rajdhani);
+}
+
 * {
   scroll-behavior: smooth;
 }
 
 body {
-  background-color: #0a0a0f;
   color: white;
-  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-family: var(--font-orbitron), system-ui, sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.04em;
 }
 
-.glow-orange {
-  box-shadow: 0 0 20px rgba(255, 107, 0, 0.35), 0 0 60px rgba(255, 107, 0, 0.12);
+/* ── Font utilities ───────────────────────────────────────── */
+.font-gaming {
+  font-family: var(--font-orbitron), system-ui, sans-serif;
+  letter-spacing: 0.06em;
 }
 
-.text-glow {
-  text-shadow: 0 0 24px rgba(255, 107, 0, 0.7);
+.font-ui {
+  font-family: var(--font-rajdhani), system-ui, sans-serif;
+  letter-spacing: 0.02em;
 }
 
+/* ── Gradient text ────────────────────────────────────────── */
 .gradient-text {
-  background: linear-gradient(135deg, #FF6B00, #FFD700);
+  background: linear-gradient(135deg, #ff1a1a, #ff6b6b);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-.card-hover {
-  transition: all 0.3s ease;
+/* ── Glow effects ─────────────────────────────────────────── */
+.text-glow {
+  text-shadow: 0 0 28px rgba(220, 0, 0, 0.8), 0 0 60px rgba(220, 0, 0, 0.35);
 }
 
-.card-hover:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 0 30px rgba(255, 107, 0, 0.2);
+/* ══════════════════════════════════════════════════════════
+   FULL PAGE ANIMATED BACKGROUND
+══════════════════════════════════════════════════════════ */
+
+/* The animated layer — fixed, covers full viewport */
+.page-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  background: #0e0e10;
+  overflow: hidden;
 }
 
-.hero-bg {
-  background:
-    radial-gradient(ellipse at 20% 50%, rgba(255, 107, 0, 0.07) 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 20%, rgba(232, 0, 29, 0.05) 0%, transparent 50%),
-    linear-gradient(180deg, #050508 0%, #0a0a0f 100%);
+/* Slowly shifting color gradient across entire background */
+.page-bg::before {
+  content: "";
+  position: absolute;
+  inset: -50%;
+  background: conic-gradient(
+    from 0deg at 50% 50%,
+    #0e0e10 0deg,
+    #1a0505 60deg,
+    #2a0808 90deg,
+    #1a0505 120deg,
+    #0e0e10 180deg,
+    #120606 240deg,
+    #1e0606 300deg,
+    #0e0e10 360deg
+  );
+  animation: bg-spin 20s linear infinite;
+  opacity: 0.9;
 }
 
-.section-divider {
-  background: linear-gradient(90deg, transparent, #FF6B00, transparent);
-  height: 1px;
+/* Pulsing radial glow — top center (matches logo backlight) */
+.page-bg::after {
+  content: "";
+  position: absolute;
+  top: -20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  height: 100vw;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(160, 10, 10, 0.2) 0%,
+    rgba(100, 5, 5, 0.08) 35%,
+    transparent 65%
+  );
+  animation: glow-pulse 6s ease-in-out infinite;
 }
 
-.nav-blur {
-  backdrop-filter: blur(16px);
-  background: rgba(5, 5, 8, 0.88);
-  border-bottom: 1px solid rgba(255, 107, 0, 0.15);
+/* Floating color orbs */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  pointer-events: none;
+  animation: orb-float ease-in-out infinite;
 }
 
-.fire-button {
-  background: linear-gradient(135deg, #FF6B00, #E8001D);
-  transition: all 0.3s ease;
+.orb-1 {
+  width: 55vw;
+  height: 55vw;
+  top: -15vw;
+  left: -10vw;
+  background: radial-gradient(circle, rgba(130, 5, 5, 0.25) 0%, transparent 70%);
+  animation-duration: 16s;
+  animation-delay: 0s;
 }
 
-.fire-button:hover {
-  background: linear-gradient(135deg, #FF8C00, #FF1A3A);
-  box-shadow: 0 0 28px rgba(255, 107, 0, 0.55);
-  transform: translateY(-2px);
+.orb-2 {
+  width: 45vw;
+  height: 45vw;
+  bottom: -10vw;
+  right: -8vw;
+  background: radial-gradient(circle, rgba(100, 5, 5, 0.2) 0%, transparent 70%);
+  animation-duration: 22s;
+  animation-delay: -7s;
 }
 
-.grid-bg {
+.orb-3 {
+  width: 35vw;
+  height: 35vw;
+  top: 40%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(60, 10, 10, 0.15) 0%, transparent 70%);
+  animation-duration: 18s;
+  animation-delay: -3s;
+}
+
+/* Scrolling grid lines */
+.grid-lines {
+  position: absolute;
+  inset: 0;
   background-image:
-    linear-gradient(rgba(255, 107, 0, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 107, 0, 0.03) 1px, transparent 1px);
-  background-size: 50px 50px;
+    linear-gradient(rgba(180, 20, 20, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(180, 20, 20, 0.035) 1px, transparent 1px);
+  background-size: 44px 44px;
+  animation: grid-drift 25s linear infinite;
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-12px); }
+/* Vignette edges */
+.vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 35%, rgba(0, 0, 0, 0.7) 100%);
 }
 
-@keyframes pulse-ring {
-  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 107, 0, 0.5); }
-  70% { transform: scale(1); box-shadow: 0 0 0 16px rgba(255, 107, 0, 0); }
-  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 107, 0, 0); }
+/* ── Keyframes ───────────────────────────────────────────── */
+@keyframes bg-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
 }
 
-@keyframes slide-in {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.7; transform: translateX(-50%) scale(1); }
+  50%       { opacity: 1;   transform: translateX(-50%) scale(1.1); }
 }
 
-.float-anim {
-  animation: float 5s ease-in-out infinite;
+@keyframes orb-float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(30px, -40px) scale(1.07); }
+  66%       { transform: translate(-20px, 20px) scale(0.95); }
 }
 
-.pulse-ring {
-  animation: pulse-ring 2.5s ease-in-out infinite;
+@keyframes grid-drift {
+  from { background-position: 0 0; }
+  to   { background-position: 44px 44px; }
 }
 
-.slide-in {
-  animation: slide-in 0.6s ease forwards;
+/* ── Live dot ─────────────────────────────────────────────── */
+@keyframes pulse-live {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
 }
 
-.setting-row:hover {
-  background: rgba(255, 107, 0, 0.05);
-  border-radius: 8px;
+.animate-live {
+  animation: pulse-live 1.2s ease-in-out infinite;
 }
