@@ -20,15 +20,17 @@ export default function ProfileHeader() {
 
       {/* Avatar */}
       <div className="relative -mt-16 z-10">
-        <div className="absolute inset-0 rounded-full bg-red-700/30 blur-2xl scale-125 pointer-events-none" />
-        <div className="w-36 h-36 rounded-full p-0.75 bg-linear-to-br from-red-600 via-red-800 to-black shadow-[0_0_40px_rgba(200,0,0,0.5)]">
-          <div className="w-full h-full rounded-full overflow-hidden bg-[#080808]">
+        {/* Subtle glow — kept far from the image */}
+        <div className="absolute inset-0 rounded-full bg-red-700/15 blur-3xl scale-150 pointer-events-none" />
+        {/* Clean white/dark border, no color tint on the image */}
+        <div className="w-36 h-36 rounded-full p-[2px] bg-white/15 shadow-[0_0_32px_rgba(0,0,0,0.8)]">
+          <div className="w-full h-full rounded-full overflow-hidden bg-black">
             <Image
               src="/logo.jpeg"
               alt="BINT"
               width={144}
               height={144}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover scale-105"
               priority
             />
           </div>

@@ -9,6 +9,16 @@
   scroll-behavior: smooth;
 }
 
+::selection {
+  background: rgba(200, 10, 10, 0.6);
+  color: #ffffff;
+}
+
+::-moz-selection {
+  background: rgba(200, 10, 10, 0.6);
+  color: #ffffff;
+}
+
 body {
   color: white;
   font-family: var(--font-orbitron), system-ui, sans-serif;
@@ -179,4 +189,72 @@ body {
 
 .animate-live {
   animation: pulse-live 1.2s ease-in-out infinite;
+}
+
+/* ══════════════════════════════════════════════════════════
+   CLICK EFFECTS
+══════════════════════════════════════════════════════════ */
+
+/* Full-screen click layer — sits above bg, below content */
+.click-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Expanding ring */
+.click-ring {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border: 1.5px solid rgba(220, 30, 30, 0.9);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  animation: ring-expand 0.6s cubic-bezier(0.2, 0.8, 0.4, 1) forwards;
+  pointer-events: none;
+  box-shadow: 0 0 6px rgba(220, 30, 30, 0.6);
+}
+
+/* Spark dot */
+.click-spark {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: #ff3333;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: spark-fly 0.55s ease-out forwards;
+  pointer-events: none;
+  box-shadow: 0 0 4px #ff3333, 0 0 10px rgba(255, 50, 50, 0.5);
+}
+
+/* Center flash */
+.click-flash {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle, rgba(255, 60, 60, 0.9) 0%, transparent 70%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  animation: flash-burst 0.3s ease-out forwards;
+  pointer-events: none;
+}
+
+/* ── Click keyframes ─────────────────────────────────────── */
+@keyframes ring-expand {
+  0%   { transform: translate(-50%, -50%) scale(0);  opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(14); opacity: 0; }
+}
+
+@keyframes spark-fly {
+  0%   { transform: translate(-50%, -50%) translate(0, 0) scale(1); opacity: 1; }
+  100% { transform: translate(-50%, -50%) translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
+}
+
+@keyframes flash-burst {
+  0%   { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+  60%  { transform: translate(-50%, -50%) scale(4); opacity: 0.8; }
+  100% { transform: translate(-50%, -50%) scale(6); opacity: 0; }
 }
