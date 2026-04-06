@@ -1,26 +1,104 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #0a0a0f;
+  color: white;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+.glow-orange {
+  box-shadow: 0 0 20px rgba(255, 107, 0, 0.35), 0 0 60px rgba(255, 107, 0, 0.12);
+}
+
+.text-glow {
+  text-shadow: 0 0 24px rgba(255, 107, 0, 0.7);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #FF6B00, #FFD700);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 30px rgba(255, 107, 0, 0.2);
+}
+
+.hero-bg {
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(255, 107, 0, 0.07) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(232, 0, 29, 0.05) 0%, transparent 50%),
+    linear-gradient(180deg, #050508 0%, #0a0a0f 100%);
+}
+
+.section-divider {
+  background: linear-gradient(90deg, transparent, #FF6B00, transparent);
+  height: 1px;
+}
+
+.nav-blur {
+  backdrop-filter: blur(16px);
+  background: rgba(5, 5, 8, 0.88);
+  border-bottom: 1px solid rgba(255, 107, 0, 0.15);
+}
+
+.fire-button {
+  background: linear-gradient(135deg, #FF6B00, #E8001D);
+  transition: all 0.3s ease;
+}
+
+.fire-button:hover {
+  background: linear-gradient(135deg, #FF8C00, #FF1A3A);
+  box-shadow: 0 0 28px rgba(255, 107, 0, 0.55);
+  transform: translateY(-2px);
+}
+
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(255, 107, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 107, 0, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 107, 0, 0.5); }
+  70% { transform: scale(1); box-shadow: 0 0 0 16px rgba(255, 107, 0, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 107, 0, 0); }
+}
+
+@keyframes slide-in {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.float-anim {
+  animation: float 5s ease-in-out infinite;
+}
+
+.pulse-ring {
+  animation: pulse-ring 2.5s ease-in-out infinite;
+}
+
+.slide-in {
+  animation: slide-in 0.6s ease forwards;
+}
+
+.setting-row:hover {
+  background: rgba(255, 107, 0, 0.05);
+  border-radius: 8px;
 }
